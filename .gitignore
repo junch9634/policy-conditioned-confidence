@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+.DS_Store
+internal/
+private/
+data/
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.safetensors
+*.npz
+*.npy
+*.mp4
+*.avi
+*.mov
+*.jpg
+*.jpeg
+*.png
+*.ttf
+*.otf
+
+# These guards supplement, not replace, the explicit release allowlist.
