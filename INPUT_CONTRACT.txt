@@ -1,0 +1,103 @@
+INPUT AND INTERPRETATION CONTRACT
+================================
+
+Feature order (zero-based half-open)
+-----------------------------------
+0:4096       final-layer final non-padding prompt-position hidden
+4096:4099    actual generated decision one-hot, YES / NO / UNKNOWN
+4099:4102    candidate-normalized first-token probabilities, same class order
+4102:4103    FT probability selected by the actual generated decision
+Total: 4103 float32 features. OUTPUT7 is 4096:4103, not a new feature fit.
+
+The first-token interface must be valid for a row to enter this cache loader.
+FT raw is NOT the maximum candidate probability and NOT full-vocabulary softmax
+probability. Use the unchanged score/token definition in REFERENCE_CONFIG.json.
+Generation and extraction alignment must already have been checked by the data
+producer. This package cannot infer that alignment from probability arrays.
+
+Supported cache adapter
+-----------------------
+load_features(directory) accepts exactly the documented filenames:
+  COMMON_FEATURES.npz
+  RESPONSE_AND_SCORE_CACHE.jsonl
+  ID_LINK_MANIFEST.csv
+
+NPZ keys:
+  review_item_ids (N strings), candidate_order (3 strings)
+  hidden (N,4096)
+  generated_verdict_index (N integer; 0,1,2)
+  generated_verdict_onehot (N,3)
+  candidate_normalized_probabilities (N,3)
+  ft_raw_confidence (N)
+  parse_valid_mask, first_token_interface_valid_mask,
+  common_feature_valid_mask (N boolean, all true for this adapter)
+
+Response and link rows share review_item_id, input_id, development_image_id,
+image_sha256, target_hash, policy_id, policy_hash and prompt_sha256.
+The response also supplies target, parsed_verdict, parse_status="PARSED",
+format_valid (boolean), and generated_text. Responses remain metadata and are
+never concatenated into predictor features. The package ships none of these
+real records; tests build a small disposable synthetic cache.
+
+IDs are sorted only after joining by explicit ID. Duplicate, missing, unexpected
+IDs and mismatched identifiers cause an error, not positional repair.
+Hashes bind supplied records; no hash alone proves independent provenance.
+Rows with invalid feature/parse masks are rejected explicitly, not filled or
+silently dropped. format_valid=false is allowed when decision parse is valid.
+
+Label boundary
+--------------
+YES, NO and UNKNOWN are normal label classes. null, UNREVIEWED, UNDETERMINABLE,
+DEFERRED and a policy-definition problem are not automatically UNKNOWN.
+correctness() accepts only already-resolved labels. It neither authors labels
+nor verifies their human provenance.
+
+check_c_pair() expects two explicit record IDs, image and policy hashes,
+decision_parse_valid, y_original, rule_resolution_status and evaluation_label.
+Use the adapter convention "RESOLVED" only after the actual rule/observation
+process resolved that label. This convention is not an automatic conversion
+from every historical rule status. Keep raw rule output and source records
+separately; do not feed unresolved raw NO as a resolved evaluation label.
+
+The caller supplies target_relation=SAME, DIFFERENT or UNDETERMINED from actual
+target evidence. Same image is not enough to assume the same object or region.
+All C checks are returned, including null checks and explicit failures.
+Format validity alone does not define decision validity.
+
+Ranking and priors
+------------------
+Only training rows may be supplied to training_priors() and loss_terms().
+The library cannot establish a train/held-out split for private datasets.
+Pair endpoints must be in the supplied training set; ranking direction and
+actual generated decision are checked against the supplied labels.
+budget_group is a loss-reduction unit, not an assertion of physical source.
+
+matched_b_pairs() preserves the historical small degree-one exhaustive search.
+It supports at most three pairs per decision class and folds 1,2,3.
+It reports minimum achievable overlap; zero overlap is not always possible.
+It is not a general-purpose large-graph matching algorithm.
+
+Metrics
+-------
+evaluate_scores() never pools repeated seeds as independent examples.
+Pass each method/seed and evaluation cohort separately.
+For calibrated probabilities, pass the ORIGINAL continuous ranking_score so
+sigmoid saturation cannot be reported as improved ranking.
+For within-decision diagnostics, supply y_original and, for OOF only, folds.
+Weights are n_correct*n_wrong, not row count or number of seeds.
+
+No evaluable rows -> null metrics with NO_EVALUABLE_ROWS.
+Single correctness class -> AUROC null, not zero.
+No valid within-decision cells -> null, not zero.
+Probability metrics remain calculable for a single correctness class.
+Pair equality is exact, using unrounded confidence values.
+The API does not estimate significance or independence from a few case pairs.
+
+Parameter counts
+----------------
+Scalar MLP, FULL: 262721
+Three-class MLP, FULL: 262851
+Three-class MLP, OUTPUT7: 707
+Linear FULL: 12312
+Linear OUTPUT7: 24
+Different dimensions do not have identical initial parameter arrays.

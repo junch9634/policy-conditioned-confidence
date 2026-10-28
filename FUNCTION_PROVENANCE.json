@@ -1,0 +1,344 @@
+{
+  "note": "Aliases identify computational roles, not private files. Private source-path mapping is not distributed.",
+  "extracted_functions": [
+    {
+      "source_alias": "models",
+      "symbol": "require_torch",
+      "destination": "models.py",
+      "source_segment_sha256": "a42b37cdc207d38be665f4059f90f0d5d8e1ee382c02c41b6de627fa5657713b",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "models",
+      "symbol": "make_binary_predictor",
+      "destination": "models.py",
+      "source_segment_sha256": "25a26eefaf0cf315d4063e023c37ccc89136b1f2a5273b69211281dc437ecafe",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "models",
+      "symbol": "make_gold_classifier",
+      "destination": "models.py",
+      "source_segment_sha256": "1b82a44e69a05808f1fbc588f487693f012a850f38528338dcb07b48481f0ded",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "average_rank_auroc",
+      "destination": "_reference_metrics.py",
+      "source_segment_sha256": "07b43a5826e45e503bb12e828ea28371647b4df1e93a6cbe4c48d75a45542138",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "expected_tie_aurc",
+      "destination": "_reference_metrics.py",
+      "source_segment_sha256": "7aecf10e94864b9f63b15d140f18048e309f5b33991d0107fbfa9984d966ce0d",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "expected_coverage_error",
+      "destination": "_reference_metrics.py",
+      "source_segment_sha256": "79d1225ea44f31dd7e551035bab435cb334e41f42e44e71d4cf2851f4329af63",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "metric_bundle",
+      "destination": "_reference_metrics.py",
+      "source_segment_sha256": "958e8807851df92985e9bdcb58c076e6fc1a981dcfdd2291d952bfded8d31e7a",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "stable_original_logit",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "19970643498193e289767e0948fb46c7f2d6f1140c4ffe6b0676b73ef10b2f04",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "group_pair_loss",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "988e3376f1308ce08b8321021e706fb50013863ce6a9d39e4ebf0d2fc783a05c",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "weighted_exposure",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "f14a125b2c8ad2f97c0a0e5c474e107c091c2f357619acd6e177746770fcd96b",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "serialize_exposure",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "165ae5e815315a681b3f727b009e51f5315e450a1373be6dd3829fcc24e3e6fe",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "build_b_pairs",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "ce451d1eb9bed54f4facdd06ebce8a3fa0861e6ee7934b9d1283dc9cacbdb55f",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "compute_losses",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "66377099a929c7588e41ee57c640acf7a542ee92658e4ffaaf0b42f680ecef8b",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "oof",
+      "symbol": "predict_confidence",
+      "destination": "_reference_ranking.py",
+      "source_segment_sha256": "3c46f2144c413302ddd4486ecf4b49d97f25e89ebe95e16ae91dc0671c283ccf",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "cache",
+      "symbol": "CacheIntegrationError",
+      "destination": "_reference_cache.py",
+      "source_segment_sha256": "0e07054dc82c07ff285bd8e2415bab0bf8ca264b62b5d992527662687221026c",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "cache",
+      "symbol": "CommonFeatureBundle",
+      "destination": "_reference_cache.py",
+      "source_segment_sha256": "86610285550cd55b128b2ce9f0ef85684200042dab82749ac80de8f4a205794a",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "cache",
+      "symbol": "_read_jsonl",
+      "destination": "_reference_cache.py",
+      "source_segment_sha256": "fcb3639053f2d89f0ac56231d7b2a7c422b98a418fcf0f41b94577ccfd14868d",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "cache",
+      "symbol": "_unique_map",
+      "destination": "_reference_cache.py",
+      "source_segment_sha256": "73cdcd57ba7856caa758b3319da9eb1f758e9794bc531af7f11ced8793380a35",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "cache",
+      "symbol": "load_common_cache",
+      "destination": "_reference_cache.py",
+      "source_segment_sha256": "ebb60c7fe0fbd0f10a90a6d419b1a6ab37ff2a3433a5e5210907221409b1865b",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "feature_layout",
+      "destination": "linear.py",
+      "source_segment_sha256": "ca8eeb98fc690e2fff800f6f4e593729e2cae3e98ef7b3e5b57d35ea4f00f816",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "fit_preprocessor",
+      "destination": "linear.py",
+      "source_segment_sha256": "719c393ab4651dfac3609b4bdc18a84e6819bafba402e56550effbe1e220e15f",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "apply_preprocessor",
+      "destination": "linear.py",
+      "source_segment_sha256": "c362579161bee6b6f709c49e9b3487692f686c9a8101e2e130dd8b15d7a1075f",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "unpack",
+      "destination": "linear.py",
+      "source_segment_sha256": "c2c0eef4d15f77236c1840c028739c78c05b4d9ad752da2cb398882dd024906c",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "objective_and_gradient",
+      "destination": "linear.py",
+      "source_segment_sha256": "d3c827e0f99bcc23ae12269326912979d9821ac8a3175116f2691c485bc2ba18",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "parameter_diagnostics",
+      "destination": "linear.py",
+      "source_segment_sha256": "82ee478f23518f6ce464217b5eb0b988406d0050f97bdd2fff2c0d7f2d6b1e08",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "linear",
+      "symbol": "initial_parameters",
+      "destination": "linear.py",
+      "source_segment_sha256": "d78b886e5fd1c6e1565d66a1288989cbf6418306c56ae30505a4b369e6b55e0b",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "calibration",
+      "symbol": "selected_vs_other_logit",
+      "destination": "calibration.py",
+      "source_segment_sha256": "3f87695696917285f64773dbe9c46ee2c33844cd6197b45d2878762ba078b915",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "calibration",
+      "symbol": "clipped_logit",
+      "destination": "calibration.py",
+      "source_segment_sha256": "3a458b8c559356dbe836e56ce4a1d449d7ff3efb6d1c3e6cd82049a711c60cf6",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "calibration",
+      "symbol": "calibration_objective_and_gradient",
+      "destination": "calibration.py",
+      "source_segment_sha256": "7d2bb933b3d21fb2948a9680c069925f813f938a1148d823ff38b720141930a4",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "calibration",
+      "symbol": "calibrator_diagnostics",
+      "destination": "calibration.py",
+      "source_segment_sha256": "fa054f509ac27c25edeb6220345b6e6292f32edb7277596a02e56f18d359f2c5",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "calibration",
+      "symbol": "apply_calibrator",
+      "destination": "calibration.py",
+      "source_segment_sha256": "7c7be8359b61f1893f596e2c8e2f50fd865b9cfedf0e3bf70fe7f29a661ba6da",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "event_parser",
+      "symbol": "parse_event_verdict",
+      "destination": "response_parser.py",
+      "source_segment_sha256": "8f78b731439996f966be6b747736c7228e1be076d0dc21b2e63a741997ecb254",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "strip_image_token",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "ab075e76ab47da7f5308105ac3e07c5881eedf3bdbc3b378299a09159a10d600",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "parse_verdict",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "6921ada183242ab402c7e31ca161dfd945e2e09e8be97e9aee61100e62d53b77",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "strict_verdict",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "d2c04641c11d8ba70fef84a3b06730482e43eef169b24c94eb46faed81fc291d",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "softmax",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "1170eca8d1e5039ac7c9582025eaa0fa3483d226d4e25d10274468410741afb7",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "build_messages",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "a9d9fefc36badacca736b9ca2e3a61d6a542c9af2e1f8ed7550e8a4aaee6aaa4",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "verify_candidate_interface",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "e5165f43bd75b9382fd84b3336c242f8ea1838a9fcaf8732efc36f48fb3d6670",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "original_feature_extraction",
+      "symbol": "extract_step0_hidden",
+      "destination": "vlm_interface.py",
+      "source_segment_sha256": "bb438993a9de05743c73c962ed81bf78a6d182708ed553fb0ce44444022acb1a",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "fact_rule_mapper",
+      "symbol": "fingerprint",
+      "destination": "rule_mapper.py",
+      "source_segment_sha256": "a0119d4dcf022b93ad7fca75e5e0f9a5f26ebacc48101c6bf5e6abee853b3173",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "fact_rule_mapper",
+      "symbol": "concrete",
+      "destination": "rule_mapper.py",
+      "source_segment_sha256": "6eb2e002dadde043a593dbacaafc126692b48b3313942ecc4c353ee288900bd0",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "fact_rule_mapper",
+      "symbol": "evaluate",
+      "destination": "rule_mapper.py",
+      "source_segment_sha256": "e92c472f617929ccdc7ab961e3f0ac879cf2d8eb1a2daa91526caad256f4dcdc",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "fact_rule_mapper",
+      "symbol": "derive_all",
+      "destination": "rule_mapper.py",
+      "source_segment_sha256": "f8091f9843f54aa48f8e2a9424d918473c9e2d2630b294f81908130e29fd1373",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "fact_rule_mapper",
+      "symbol": "next_question",
+      "destination": "rule_mapper.py",
+      "source_segment_sha256": "6f15cc25b47859405f2cdfc5ad33bc84e8cf5b698c1087403178187d1e3b6a66",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "evidence_gate",
+      "symbol": "resolve",
+      "destination": "evidence_gate.py",
+      "source_segment_sha256": "a27472c8a2f2895b4b04f822a997e19d9ce0899ab4293b3ffa30a2803267628a",
+      "source_body_unchanged": true
+    },
+    {
+      "source_alias": "evidence_gate",
+      "symbol": "derive_all_gated",
+      "destination": "evidence_gate.py",
+      "source_segment_sha256": "295f31f2bf053283939e7fce74e92bcf26d31c6ff9458ec938fde798e7fb07e1",
+      "source_body_unchanged": true
+    }
+  ],
+  "adapters": [
+    "api.py is newly written input validation, formula adapters and guarded composition; not a byte-copy of a historical runner",
+    {
+      "destination": "roi.py",
+      "symbol": "render",
+      "source_alias": "temporal_renderer",
+      "source_segment_sha256": "b47401107abf1bad03154083aa4650071a62eb9eeae6a03e67477cc57be9deb8",
+      "adapted_segment_sha256": "f8db7ce6c20cc0ccde7d12c7ca35e25f503e50e5d1166c85e8ad03c3f3efad2c",
+      "changes": [
+        "rendering configuration argument replaces global PROTOCOL[rendering]",
+        "font_path argument replaces container-specific font path"
+      ],
+      "drawing_operations_unchanged": true,
+      "source_body_unchanged": false,
+      "not_historical_jpg_reconstruction": true
+    }
+  ]
+}

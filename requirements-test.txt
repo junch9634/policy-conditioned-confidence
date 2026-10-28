@@ -1,0 +1,6 @@
+# Tested on Python 3.11.11, CPU execution. No VLM dependencies are needed.
+# The tested PyTorch runtime reported 2.8.0+cu128; CUDA was disabled for tests.
+numpy==2.2.6
+scipy==1.17.0
+torch==2.8.0
+Pillow==12.0.0

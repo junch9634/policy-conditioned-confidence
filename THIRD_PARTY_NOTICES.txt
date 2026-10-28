@@ -1,0 +1,22 @@
+EXTERNAL DEPENDENCIES AND SCOPE OF MIT LICENSE
+
+This archive contains authored reference code and permitted policy/configuration
+files. It does not vendor dependency libraries, fonts, models or datasets.
+No external license is replaced by the MIT license for this package.
+
+Runtime dependencies recorded in requirements-test.txt:
+- NumPy 2.2.6
+- SciPy 1.17.0
+- PyTorch 2.8.0 (recorded test runtime 2.8.0+cu128; tests used CPU)
+- Pillow 12.0.0
+
+The rendering test expects an externally installed DejaVuSans.ttf. The font is
+not bundled. Its recorded digest is in ROI_RENDERING_CONFIG.json. Users must
+consult the actual dependency distributions and font license they install.
+This file identifies dependencies; it is not a license audit of those packages.
+
+The historical VLM is Qwen3-VL. No model weights, tokenizer/processor files,
+Transformers distribution, private media, feature caches or trained confidence
+checkpoints are in this archive. Obtaining or redistributing such resources
+requires their separate terms and permissions. No access to private data is
+promised. Do not describe this license as permission to redistribute study media.

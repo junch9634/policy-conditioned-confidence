@@ -1,0 +1,273 @@
+{
+  "status": "REFERENCE_CONFIGURATION_NOT_A_NEW_EXPERIMENT",
+  "research_decision": "NOT_ESTABLISHED_IN_CURRENT_SETUP",
+  "class_order": [
+    "YES",
+    "NO",
+    "UNKNOWN"
+  ],
+  "feature_blocks_zero_based_half_open": {
+    "hidden": [
+      0,
+      4096
+    ],
+    "original_decision_one_hot": [
+      4096,
+      4099
+    ],
+    "candidate_normalized_probabilities": [
+      4099,
+      4102
+    ],
+    "selected_ft_confidence": [
+      4102,
+      4103
+    ]
+  },
+  "mlp": {
+    "epochs": 10,
+    "width": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.01,
+    "batch": "full batch",
+    "lambda_pair": 1.0,
+    "pair_loss": "softplus(s_negative-s_positive)",
+    "pair_reduction": "mean within budget group, then mean over nonempty groups"
+  },
+  "training_seeds": [
+    20261001,
+    20261002,
+    20261003
+  ],
+  "pair_seed": 20261001,
+  "mlp_preprocessing": "none; no scaler or PCA",
+  "head": {
+    "scalar": "Linear(input,64), ReLU, Linear(64,1)",
+    "gold_class": "Linear(input,64), ReLU, Linear(64,3)"
+  },
+  "methods": {
+    "A": "BCE",
+    "B": "BCE + B ranking",
+    "C": "BCE + C ranking",
+    "D": "CE",
+    "E": "CE + C ranking",
+    "F": "CE + B ranking"
+  },
+  "confidence": {
+    "A_B_C": "sigmoid(scalar logit)",
+    "D_E_F": "q(actual generated decision), not max(q)",
+    "FT_RAW": "first-token candidate-normalized probability of the actual generated decision"
+  },
+  "feature_origin_contract": {
+    "model": {
+      "repository": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "dtype": "bfloat16",
+      "official_chat_template": true
+    },
+    "candidate_first_token_ids": {
+      "YES": 126730,
+      "NO": 52959,
+      "UNKNOWN": 129382
+    },
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 256,
+      "use_cache": true
+    },
+    "score_definition": "Raw pre-warper vocabulary logits at assistant response step 0; softmax across YES/NO/UNKNOWN candidates; FT raw confidence is the candidate-normalized probability assigned to the parsed actually generated verdict only when the first generated token matches that verdict candidate token.",
+    "hidden_definition": "Final transformer-layer hidden vector at the final non-padding multimodal prompt position in generation step 0, immediately before the LM-head projection that predicts the first generated token.",
+    "hidden_storage": {
+      "extraction_dtype": "bfloat16",
+      "storage_dtype": "float32",
+      "reason": "NumPy has no portable bfloat16 storage; bfloat16 values are exactly representable in float32."
+    },
+    "processor_file_sha256": {
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399"
+    },
+    "note": "Selected original interface and hidden-extraction functions included; no VLM generation or prompt-forward runner, weights, or study arrays included."
+  },
+  "linear": {
+    "models": {
+      "LINEAR_FULL": {
+        "input_dimension": 4103,
+        "formula": "logits = W x + b",
+        "output_classes": [
+          "YES",
+          "NO",
+          "UNKNOWN"
+        ],
+        "expected_parameter_count": 12312
+      },
+      "LINEAR_OUTPUT7": {
+        "input_dimension": 7,
+        "feature_slice_zero_based_half_open": [
+          4096,
+          4103
+        ],
+        "components": [
+          "actual generated verdict one-hot:3",
+          "candidate-normalized probabilities YES/NO/UNKNOWN:3",
+          "FT confidence of actual generated verdict:1"
+        ],
+        "formula": "logits = W x + b",
+        "output_classes": [
+          "YES",
+          "NO",
+          "UNKNOWN"
+        ],
+        "expected_parameter_count": 24
+      }
+    },
+    "preprocessing": {
+      "one_hot_features": "kept unchanged",
+      "continuous_features": "subtract train mean and divide by max(train population standard deviation, 1e-8)",
+      "standard_deviation_ddof": 0,
+      "scale_floor": 1e-08,
+      "heldout_and_v2": "use the corresponding train-set transformation without refitting",
+      "common_output7_transformation_must_match": true,
+      "note": "This differs from the prior unstandardized 10-epoch MLP ablation."
+    },
+    "objective": {
+      "formula": "mean three-class CE + (lambda/2)*(sum(W**2)+sum(b**2))",
+      "lambda": 0.001,
+      "regularization_divided_by_parameter_count": false,
+      "bias_regularized": true,
+      "class_weighting": false,
+      "label_smoothing": false,
+      "ce": "stable log-sum-exp implementation"
+    },
+    "initialization": {
+      "W": "all zeros",
+      "p_add_one": "(n_train_gold(k)+1)/(N_train+3)",
+      "b": "log(p_add_one) minus mean(log(p_add_one))",
+      "initial_prediction": "train add-one constant distribution",
+      "random_seed": null
+    },
+    "solver": {
+      "library": "scipy.optimize.minimize",
+      "method": "L-BFGS-B",
+      "jacobian": "analytic; returned with objective",
+      "bounds": null,
+      "options": {
+        "maxiter": 2000,
+        "maxfun": 50000,
+        "gtol": 1e-08,
+        "ftol": 1e-15,
+        "maxls": 50,
+        "maxcor": 20
+      },
+      "postfit_numeric_pass": {
+        "all_finite": true,
+        "J_final_le_J_initial_plus": 1e-08,
+        "gradient_infinity_norm_le": 1e-06
+      },
+      "automatic_retry_or_setting_change": false
+    },
+    "runtime": {
+      "python": "3.11.11",
+      "numpy": "2.2.6",
+      "scipy": "1.17.0",
+      "dtype": "float64",
+      "device": "CPU"
+    }
+  },
+  "calibration": {
+    "score_normalization": {
+      "mu": "mean of the method's 80 V1 OOF scores",
+      "scale": "max(population standard deviation of V1 OOF scores, 1e-8)",
+      "u": "(score-mu)/scale",
+      "v2_refit": false
+    },
+    "calibrator": {
+      "formula": "t = a*u+b; p_calibrated = sigmoid(t)",
+      "constraint": "a >= 1e-6",
+      "objective": "mean(logaddexp(0,t)-z*t) + 0.001/2*(a*a+b*b)",
+      "lambda": 0.001,
+      "initial_a": 1.0,
+      "initial_b": "log((n_correct+1)/(n_wrong+1))",
+      "parameter_count": 2
+    },
+    "solver": {
+      "library": "scipy.optimize.minimize",
+      "method": "L-BFGS-B",
+      "bounds": [
+        [
+          1e-06,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      "jacobian": "analytic; returned with objective",
+      "options": {
+        "maxiter": 1000,
+        "maxfun": 10000,
+        "gtol": 1e-08,
+        "ftol": 1e-15,
+        "maxls": 50,
+        "maxcor": 10
+      },
+      "postfit_pass": {
+        "all_finite": true,
+        "J_final_le_J_initial_plus": 1e-08,
+        "projected_gradient_infinity_norm_le": 1e-06
+      },
+      "automatic_retry_or_alternative_calibrator": false
+    },
+    "runtime": {
+      "python": "3.11.11",
+      "numpy": "2.2.6",
+      "scipy": "1.17.0",
+      "dtype": "float64",
+      "device": "CPU"
+    },
+    "evaluation": {
+      "probability_metrics": [
+        "Brier",
+        "binary NLL",
+        "mean confidence",
+        "accuracy",
+        "mean confidence on correct rows",
+        "mean confidence on wrong rows"
+      ],
+      "rank_metrics": [
+        "AUROC",
+        "AURC",
+        "Error@50%",
+        "within-decision AUROC"
+      ],
+      "rank_metric_score": "original continuous pre-calibration score for both raw and calibrated reporting",
+      "nll_clip": 1e-07,
+      "fit_diagnostic_label": "CALIBRATION_FIT_DIAGNOSTIC",
+      "v2_label": "DEVELOPMENT_TRANSFER"
+    }
+  },
+  "metrics": {
+    "binary_nll_clip": 1e-07,
+    "score_logit_clip": 1e-12,
+    "auroc": "average ranks for exact ties",
+    "aurc": "mean prefix risk; expected error order inside exact tie blocks",
+    "coverage": "ceil(coverage*N); expected errors within cutoff tie block",
+    "within_decision": "weight each valid cell by n_correct*n_wrong; no valid cells -> null",
+    "oof_cells": "held-out fold and actual generated decision",
+    "transfer_cells": "actual generated decision",
+    "pair_ties": "exact equality of unrounded confidence",
+    "calibrated_rank_metrics": "use original continuous scores and ties"
+  },
+  "scope": {
+    "included": "Original computation functions, parser and token interface, fact-rule mapping with evidence gate, path-parameterized temporal PNG renderer, guarded adapters and synthetic tests",
+    "not_included": [
+      "private datasets, human records, responses, predictions, caches and checkpoints",
+      "whole-study OOF/transfer and optimization orchestration",
+      "complete VLM generation or later prompt-only-forward runner",
+      "human observation UI, historical JPG rendering pipeline, fonts and model weights"
+    ],
+    "reason": "This package does not claim independent reproduction of private-data results."
+  }
+}

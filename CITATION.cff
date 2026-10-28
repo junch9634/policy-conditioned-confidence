@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using this metadata. An archive
+  DOI will be added after the release is preserved.
+type: software
+title: 'Policy-conditioned confidence: computational reference code'
+authors:
+- family-names: Jun
+  given-names: Changhyun
+  affiliation: Intellivix Co., Ltd., Seoul, Republic of Korea
+abstract: Computational reference for a controlled developmental comparison of policy-matched
+  and rewired confidence ranking. Not an independent reproduction using public data.
+keywords:
+- confidence estimation
+- vision-language models
+- policy-conditioned evaluation
+license: MIT
+version: 0.1.0

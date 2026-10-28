@@ -1,0 +1,49 @@
+{
+  "version": "FIXED_SPATIAL_ROI_PNG_v1",
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "box_semantics": "Same fixed spatial region as the displayed old rectangle, not a tracked object or the entire frame.",
+  "coordinates_basis": "Measured core blue border bands in the old JPG, rounded to fixed centerline bounds; exact old renderer and subpixel boundary not recovered.",
+  "blue_mask_used_for_measurement": "B>170 and B-R>120 and B-G>100; no content-based target selection",
+  "color_rgb": [
+    0,
+    0,
+    255
+  ],
+  "stroke_px": 3,
+  "stroke_placement": "Outer strips adjoining ROI; image-edge strips are clipped into the outermost 3 pixels. No filled overlay inside ROI.",
+  "number": "1",
+  "number_patch_size": [
+    26,
+    30
+  ],
+  "number_patch_offset": [
+    -32,
+    0
+  ],
+  "number_patch_reference": "ROI top-left; outside ROI to the left, fixed across the clip",
+  "number_rgb": [
+    255,
+    255,
+    255
+  ],
+  "number_background_rgb": [
+    0,
+    0,
+    0
+  ],
+  "font_sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+  "font_px": 24,
+  "save_format": "PNG RGB lossless without video/time/source metadata",
+  "crop_resize_warp_tracking": false,
+  "historical_renderer_equivalence_claimed": false,
+  "historical_differences": [
+    "PNG versus JPEG",
+    "New explicit 3px border",
+    "Number moved outside ROI",
+    "Measured fixed bounds rather than recovered historical renderer coordinates"
+  ],
+  "comparison_not_pure_temporal_effect": true
+}
